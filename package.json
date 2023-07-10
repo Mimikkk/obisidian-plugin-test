@@ -39,5 +39,13 @@
     "tslib": "^2.6.0",
     "typescript": "5.1.6",
     "vite": "^4.4.2"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "arrowParens": "avoid",
+    "endOfLine": "auto",
+    "tabWidth": 2
   }
 }
