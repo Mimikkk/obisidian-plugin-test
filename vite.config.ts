@@ -1,14 +1,15 @@
 import { defineConfig } from "vite";
 import { resolve } from "path";
 
-const name = "obsidian-js";
 export default defineConfig({
   build: {
     outDir: "build",
+    emptyOutDir: false,
     lib: {
-      name,
+      name: "obsidian-js",
+      formats: ["es"],
       entry: resolve(__dirname, "src/main.ts"),
-      fileName: (format) => `${name}.${format}.js`,
+      fileName: "main",
     },
     rollupOptions: {
       external: ["obsidian"],

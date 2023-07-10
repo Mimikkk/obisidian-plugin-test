@@ -13,14 +13,15 @@
     }
   },
   "version": "1.0.0",
-  "description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+  "description": "This plugins allows for the running js module scripts inside of Obsidian.",
   "scripts": {
     "build": "concurrently 'pnpm:build:clear' -c red.bold && concurrently 'pnpm:build:tsc' 'pnpm:build:lib'  -c blue.bold,green.bold",
     "build:clear": "rimraf ./build",
     "build:tsc": "tsc -noEmit -skipLibCheck",
     "build:lib": "vite build",
-    "internal:publish": "pnpm run build && pnpm run internal:publish:move",
-    "internal:publish:move": "copyfiles -V -u 1 build/* ../../Obsidian/Knowledge/.obsidian/plugins/obsidian-sample-plugin/"
+    "internal:publish": "concurrently 'pnpm:internal:publish:clear' 'pnpm:build' -c red,blue && pnpm run internal:publish:move",
+    "internal:publish:clear": "rimraf ../../Obsidian/Knowledge/.obsidian/plugins/obsidian-sample-plugin/",
+    "internal:publish:move": "copyfiles -u 1 build/* ../../Obsidian/Knowledge/.obsidian/plugins/obsidian-sample-plugin/"
   },
   "keywords": [],
   "author": "Daniel Zdancewicz <zdancewicz.daniel@gmail.com>",
