@@ -12,6 +12,8 @@ const SettingsTab = () => {
 export default create({
   construct: async api => {
     Self.api = api;
+    // @ts-ignore
+    document.api = Self.api;
 
     Self.Register.script(Tailwind.create());
 
