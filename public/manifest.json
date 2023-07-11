@@ -3,7 +3,7 @@
   "name": "React/MJS/Tailwind Extension",
   "version": "0.0.0",
   "minAppVersion": "0.15.0",
-  "description": "This plugin allows for:\n\t- Use of react elements.\n\t- Use of Tailwindcss.\n\t- Use of javascript modules.",
+  "description": "This plugin allows of react elements / Tailwindcss / javascript modules.",
   "author": "Daniel Zdancewicz <zdancewicz.daniel@gmail.com>",
   "authorUrl": "https://github.com/Mimikkk",
   "isDesktopOnly": true
