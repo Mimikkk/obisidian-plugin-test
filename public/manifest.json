@@ -3,7 +3,7 @@
   "name": "React/MJS/Tailwind Extension",
   "version": "0.0.0",
   "minAppVersion": "0.15.0",
-  "description": "This is a plugin for Obsidian. This plugin allows for the use of inline react elements. It also allows for use of Tailwindcss. And it allows for the use of javascript modules.",
+  "description": "This plugin allows for:\n\t- Use of react elements.\n\t- Use of Tailwindcss.\n\t- Use of javascript modules.",
   "author": "Daniel Zdancewicz <zdancewicz.daniel@gmail.com>",
   "authorUrl": "https://github.com/Mimikkk",
   "isDesktopOnly": true
