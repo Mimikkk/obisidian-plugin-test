@@ -56,5 +56,10 @@ export const self = {
     ) => self.api.registerDomEvent(document as unknown as Window, type, callback, options),
     interval: (interval: number) => self.api.registerInterval(interval),
   },
+  slot: ({ ribbon, statusbar, settings }: { ribbon?: ReactNode; statusbar?: ReactNode; settings?: ReactNode }) => {
+    if (ribbon) self.ribbon.slot(ribbon);
+    if (statusbar) self.statusbar.slot(statusbar);
+    if (settings) self.settings.slot(settings);
+  },
   api: null as unknown as Plugin,
 };

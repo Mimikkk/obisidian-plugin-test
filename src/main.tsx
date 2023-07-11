@@ -13,22 +13,24 @@ export default create({
     self.api = api;
     await self.settings.actions.load();
 
-    self.ribbon.slot(
-      <Ribbon
-        title="react"
-        onClick={() => {
-          console.log('click');
-        }}
-      >
-        <AcademicCapIcon
-          style={{
-            width: '24px',
-            height: '24px',
+    self.slot({
+      ribbon: (
+        <Ribbon
+          title="react"
+          onClick={() => {
+            console.log('click');
           }}
-        />
-      </Ribbon>,
-    );
-    self.statusbar.slot(<StatusBarItem>lol</StatusBarItem>);
-    self.settings.slot(<SettingsTab />);
+        >
+          <AcademicCapIcon
+            style={{
+              width: '24px',
+              height: '24px',
+            }}
+          />
+        </Ribbon>
+      ),
+      statusbar: <StatusBarItem>lol</StatusBarItem>,
+      settings: <SettingsTab />,
+    });
   },
 });
