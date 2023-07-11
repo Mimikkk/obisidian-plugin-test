@@ -10,7 +10,7 @@ export default defineConfig({
     lib: {
       name: 'obsidian-js',
       formats: ['cjs'],
-      entry: resolve(__dirname, 'src/main.ts'),
+      entry: resolve(__dirname, 'src/main.tsx'),
       fileName: 'main',
     },
     rollupOptions: {
@@ -24,4 +24,9 @@ export default defineConfig({
     },
   },
   plugins: [react()],
+  resolve: {
+    alias: {
+      '@self': resolve(__dirname, 'src/self.tsx'),
+    },
+  },
 });
