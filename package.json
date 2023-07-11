@@ -29,8 +29,15 @@
   "peerDependencies": {
     "obsidian": "^1.2.8"
   },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "devDependencies": {
     "@types/node": "^20.4.1",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
     "builtin-modules": "3.3.0",
     "concurrently": "^8.2.0",
     "copyfiles": "^2.4.1",

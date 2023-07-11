@@ -1,25 +1,27 @@
-import { defineConfig } from "vite";
-import { resolve } from "path";
+import { defineConfig } from 'vite';
+import { resolve } from 'path';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   build: {
     minify: false,
-    outDir: "build",
+    outDir: 'build',
     emptyOutDir: false,
     lib: {
-      name: "obsidian-js",
-      formats: ["cjs"],
-      entry: resolve(__dirname, "src/main.ts"),
-      fileName: "main",
+      name: 'obsidian-js',
+      formats: ['cjs'],
+      entry: resolve(__dirname, 'src/main.ts'),
+      fileName: 'main',
     },
     rollupOptions: {
-      external: ["obsidian"],
+      external: ['obsidian'],
       output: {
-        entryFileNames: "main.js",
+        entryFileNames: 'main.js',
         globals: {
-          obsidian: "obsidian",
+          obsidian: 'obsidian',
         },
       },
     },
   },
+  plugins: [react()],
 });
