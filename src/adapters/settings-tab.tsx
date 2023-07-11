@@ -1,9 +1,9 @@
 import { PluginSettingTab } from 'obsidian';
-import { self } from '@self';
+import { Self } from '@self';
 
 export namespace SettingTab {
   export const create = () =>
     new (class extends PluginSettingTab {
       public display() {}
-    })(self.api.app, self.api);
+    })(Self.api.app, Self.api);
 }

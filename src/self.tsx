@@ -5,61 +5,66 @@ import { Children } from 'react';
 import { SettingTab } from './adapters/settings-tab';
 import type { RibbonProps } from './components/ribbon';
 
-const roots = {
-  statusbar: null as null | Root,
-  settings: null as null | Root,
-};
-export const self = {
-  settings: {
-    state: {
-      setting: '',
-    },
-    actions: {
-      load: async () => {
-        return Object.assign({}, {}, await self.api.loadData());
-      },
-      save: async (settings: {}) => {
-        await self.api.saveData(settings);
-      },
-    },
-    slot: (children: ReactNode) => {
+export namespace Self {
+  export let api = null as unknown as Plugin;
+  const roots = {
+    statusbar: null as null | Root,
+    settings: null as null | Root,
+  };
+
+  export namespace Register {
+    export const script = (script: HTMLScriptElement) => document.head.append(script);
+
+    export const event = <EventType extends keyof WindowEventMap>(
+      type: EventType,
+      callback: (this: HTMLElement, event: WindowEventMap[EventType]) => void,
+      options?: boolean | AddEventListenerOptions,
+    ) => api.registerDomEvent(document as unknown as Window, type, callback, options);
+
+    export const interval = (interval: number) => api.registerInterval(interval);
+  }
+
+  export namespace Ribbon {
+    export const slot = (children: ReactNode) => {
+      const ribbon = Children.toArray(children)[0] as ReactElement<RibbonProps>;
+
+      const element = api.addRibbonIcon('dice', ribbon.props.title, ribbon.props.onClick as () => void);
+
+      createRoot(element).render(ribbon.props.children);
+    };
+  }
+
+  export namespace Statusbar {
+    export const slot = (children: ReactNode) => {
+      if (!roots.statusbar) roots.statusbar = createRoot(api.addStatusBarItem());
+
+      roots.statusbar.render(children);
+    };
+  }
+
+  export namespace Settings {
+    export const slot = (children: ReactNode) => {
       if (!roots.settings) {
         const tab = SettingTab.create();
         roots.settings = createRoot(tab.containerEl);
-        self.api.addSettingTab(tab);
+        api.addSettingTab(tab);
       }
 
       roots.settings.render(children);
-    },
-  },
-  statusbar: {
-    slot: (children: ReactNode) => {
-      if (!roots.statusbar) roots.statusbar = createRoot(self.api.addStatusBarItem());
+    };
+  }
 
-      roots.statusbar.render(children);
-    },
-  },
-  ribbon: {
-    slot: (children: ReactNode) => {
-      const ribbon = Children.toArray(children)[0] as ReactElement<RibbonProps>;
-
-      const element = self.api.addRibbonIcon('dice', ribbon.props.title, ribbon.props.onClick as () => void);
-
-      createRoot(element).render(ribbon.props.children);
-    },
-  },
-  register: {
-    event: <EventType extends keyof WindowEventMap>(
-      type: EventType,
-      callback: (this: HTMLElement, event: WindowEventMap[EventType]) => any,
-      options?: boolean | AddEventListenerOptions,
-    ) => self.api.registerDomEvent(document as unknown as Window, type, callback, options),
-    interval: (interval: number) => self.api.registerInterval(interval),
-  },
-  slot: ({ ribbon, statusbar, settings }: { ribbon?: ReactNode; statusbar?: ReactNode; settings?: ReactNode }) => {
-    if (ribbon) self.ribbon.slot(ribbon);
-    if (statusbar) self.statusbar.slot(statusbar);
-    if (settings) self.settings.slot(settings);
-  },
-  api: null as unknown as Plugin,
-};
+  export const slot = ({
+    ribbon,
+    statusbar,
+    settings,
+  }: {
+    ribbon?: ReactNode;
+    statusbar?: ReactNode;
+    settings?: ReactNode;
+  }) => {
+    if (ribbon) Ribbon.slot(ribbon);
+    if (statusbar) Statusbar.slot(statusbar);
+    if (settings) Settings.slot(settings);
+  };
+}
